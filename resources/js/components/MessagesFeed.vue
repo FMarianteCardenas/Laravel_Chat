@@ -42,7 +42,7 @@ export default {
 .feed{
     background:#f0f0f0;
     height:100%;
-    max-height:468px;
+    max-height:435px;
     overflow: scroll;
 
     ul{
@@ -61,20 +61,21 @@ export default {
                     display:inline-block;
                 }
                 &.received{
-                    text-align: right;
+                    text-align: left;
                     
                     .text{
-                        background:#b2b2b2;
-                        margin-right:10px;
+                        background:rgba(221, 228, 240,1);
+                        margin-left:10px;
                     }
                 }
 
                 &.sent{
-                    text-align: left;
+                    text-align: right;
                     
                     .text{
-                        background:#81c4f9;
-                        margin-left:10px;
+                        background:rgba(0, 132, 255, 1);
+                        margin-right:10px;
+                        color: #ffffff;
                     }
                 }
             }

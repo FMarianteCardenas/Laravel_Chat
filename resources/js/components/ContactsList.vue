@@ -2,12 +2,14 @@
     <div class="contact-list">
         <ul>
             <li v-for="contact in sortContactByUnread" :key="contact.id" @click="selectContact(contact)" :class="{'selected':contact===selected}">
+                <span class="connected neon" v-if="contact.online == 1">c</span>
                 <div class="avatar">
                     <img :src="contact.profile_img" :alt="contact.name">
                 </div>
                 <div class="contact">
                     <p class="name">{{contact.name}}</p>
                     <p>{{contact.email}}</p>
+                    <p class="neon" v-if="contact.online == 1">Conectado(a)</p>
                 </div>
                 <span class="unread" v-if="contact.unread > 0">{{contact.unread}}</span>
             </li>
@@ -87,6 +89,36 @@ export default {
                 border-radius:3px;
             }
 
+            span.connected{
+                background:#35e653;
+                color:#35e653;
+                position:absolute;
+                right:11px;
+                top:10px;
+                display:flex;
+                font-weight:500;
+                max-width: 7px;
+                justify-content: center;
+                align-items: center;
+                line-height: 9px;
+                padding: 0 4px;
+                border-radius:50%;
+            }
+
+            .neon {
+                color: #35e653;
+                text-shadow:
+                    0 0 5px rgba(70, 171, 27,1),
+                    0 0 10px rgba(70, 171, 27,1),
+                    0 0 20px rgba(70, 171, 27,1),
+                    0 0 40px rgba(55, 122, 26,1),
+                    0 0 80px rgba(55, 122, 26,1),
+                    0 0 90px rgba(55, 122, 26,1),
+                    0 0 100px rgba(55, 122, 26,1),
+                    0 0 140px rgba(55, 122, 26,1),
+                    0 0 180px rgba(55, 122, 26,1);
+            }
+
             .avatar{
                 flex:1;
                 display:flex;
@@ -112,6 +144,12 @@ export default {
                     &.name{
                         font-weight:bold;
                     }
+
+                    &.neon {
+                            color: #2bbd30;
+                            text-shadow:
+                    0 0 5px rgba(70, 171, 27,1);
+                            }
                 }
                 
             }

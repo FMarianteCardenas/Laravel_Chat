@@ -9,6 +9,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    
+    /**
+     * The channels the user receives notification broadcasts on.
+     * El canal donde el usuario recibe notificaciones
+     * @return string
+     */
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'user.notifications.'.$this->id;
+    }
 
     /**
      * The attributes that are mass assignable.
@@ -36,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function contacts_one()
+    {
+        return $this->belongsToMany('App\User', 'networks', 'user_one_id','user_two_id');
+    }
+
+    public function contacts_two()
+    {
+        return $this->belongsToMany('App\User', 'networks', 'user_two_id','user_one_id');
+    }
 }

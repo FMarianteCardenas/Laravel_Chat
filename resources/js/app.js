@@ -23,6 +23,10 @@ window.Vue = require('vue');
 //Vue.component('chat-component', require('./components/ChatComponent.vue').default);
 import ChatComponent from './components/Chat.vue';
 Vue.component('chat-component', ChatComponent);
+import CxltToastr from 'cxlt-vue2-toastr';
+import 'cxlt-vue2-toastr/dist/css/cxlt-vue2-toastr.css';
+
+Vue.use(CxltToastr);
 
 
 /**

@@ -1,6 +1,6 @@
 <template>
         <div class="chat-app">
-            <conversation :contact="selectedContact" :messages="messages" @new="saveNewMessage"/>
+            <conversation :contact="selectedContact" :messages="messages" @new="saveNewMessage" :user="user"/>
             <contactsList :contacts="contacts" @selected="startConversationWith"/>
         </div>
 </template>
@@ -36,6 +36,56 @@ import ContactsList from './ContactsList';
                     console.log(response.data);
                     this.contacts = response.data;
                 })
+
+            Echo.private(`user.has.loged.In.${this.user.id}`)
+                .listen('LogedInUser',(e)=>{
+                    console.log('un usuario inicio sesion',e);
+                })
+            
+            Echo.private(`user.notifications.${this.user.id}`)
+                .notification((notification) => {
+                    console.log('notificacion tipo',notification);
+                    if(notification.notification == "user_conected"){
+
+                        let contact = this.contacts.filter(function(c){
+                            return c.id === notification.user_id;
+                        });
+
+                        contact[0].online = 1;
+
+                        this.$toast.success({
+                            title:`${notification.user_name}`,
+                            color:'rgb(70, 171, 27,1)',
+                            message:`Ha Iniciado Sesión`,
+                            position:'top right',
+                            showDuration: 1500,
+                            hideDuration: 1500,
+                            timeOut: 6000,
+                            closeButton: true,
+                            icon: `${contact[0].profile_img}`
+                        });
+                    }
+                    else if(notification.notification == "user_disconnected"){
+                        let contact = this.contacts.filter(function(c){
+                            return c.id === notification.user_id;
+                        });
+
+                        contact[0].online = 0;
+
+                        this.$toast.success({
+                            title:`${notification.user_name}`,
+                            color:'rgba(227, 93, 16,1)',
+                            message:`se ha Desconectado`,
+                            position:'top right',
+                            showDuration: 1500,
+                            hideDuration: 1500,
+                            timeOut: 7000,
+                            closeButton: true,
+                            icon: `${contact[0].profile_img}`
+                        });
+                    }
+                    
+                });
         },
         methods:{
             startConversationWith(contact){
@@ -44,6 +94,8 @@ import ContactsList from './ContactsList';
                 axios.get(`/conversation/${contact.id}`)
                     .then((response)=>{
                         this.messages = response.data;
+                        console.log('mensajes',this.messages);
+
                         this.selectedContact = contact;
                     })
             },
