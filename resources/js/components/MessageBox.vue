@@ -65,25 +65,20 @@ export default {
     border: 1px solid lightgray;
     padding:6px;
 }
-
 .tipying{
         max-height: 10%;
         text-align: right;
         margin-right: 10px;
         margin-top: 5px;
 }
-
-
 .tiblock {
     align-items: center;
     display: flex;
     height: auto;
 }
-
 .ticontainer .tidot {
     background-color: #90949c;
 }
-
 .tidot {
     -webkit-animation: mercuryTypingAnimation 1.5s infinite ease-in-out;
     border-radius: 2px;
@@ -92,7 +87,6 @@ export default {
     margin-right: 2px;
     width: 4px;
 }
-
 @-webkit-keyframes mercuryTypingAnimation{
 0%{
   -webkit-transform:translateY(0px)
@@ -104,7 +98,6 @@ export default {
   -webkit-transform:translateY(0px)
 }
 }
-
 .tidot:nth-child(1){
 -webkit-animation-delay:200ms;
 }

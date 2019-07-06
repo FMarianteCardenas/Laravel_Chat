@@ -26,6 +26,7 @@
     "dependencies": {
         "cxlt-vue2-toastr": "^1.1.0",
         "laravel-echo": "^1.5.4",
-        "pusher-js": "^4.4.0"
+        "pusher-js": "^4.4.0",
+        "v-emoji-picker": "^1.1.4"
     }
 }
