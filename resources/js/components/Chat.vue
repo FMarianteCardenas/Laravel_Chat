@@ -19,6 +19,7 @@ import ContactsList from './ContactsList';
             return{
                 selectedContact:null,
                 messages:[],
+                files:[],
                 contacts:[]
             }
         },
@@ -33,7 +34,7 @@ import ContactsList from './ContactsList';
                 })
             axios.get('/contacts')
                 .then((response)=>{
-                    console.log(response.data);
+                    console.log('contactos',response.data);
                     this.contacts = response.data;
                 })
 
@@ -84,6 +85,15 @@ import ContactsList from './ContactsList';
                             icon: `${contact[0].profile_img}`
                         });
                     }
+                    else if(notification.notification == "message_watched"){
+                        if(this.selectedContact && this.selectedContact.id == notification.to){
+                            axios.get(`/conversation/${this.selectedContact.id}`)
+                            .then((response)=>{
+                                this.messages = response.data;
+                                console.log('mensajes',this.messages);
+                            })
+                        }
+                    }
                     
                 });
         },
@@ -93,21 +103,30 @@ import ContactsList from './ContactsList';
                 this.updateUnreadMessages(contact,true);
                 axios.get(`/conversation/${contact.id}`)
                     .then((response)=>{
-                        this.messages = response.data;
+                        this.messages = response.data.messages;
+                        this.files = response.data.files;
                         console.log('mensajes',this.messages);
+                        console.log('archivos',this.files);
 
                         this.selectedContact = contact;
                     })
             },
 
             saveNewMessage(message){
+                console.log('guardando el nuevo mensaje',message);
                 this.messages.push(message);
             },
 
             handleIncoming(message){
                 if(this.selectedContact && message.from == this.selectedContact.id){
                     // si el mensaje que se recibe es del contacto que estoy hablando se agrega
+                    //message.read = 1;
                     this.saveNewMessage(message);
+                    //marcar el mensaje como leído para avisarle al otro contacto
+                    axios.post(`/message_read/${message.id}`)
+                            .then((response)=>{
+                                console.log('mensaje actualizado como leído',response.data);
+                            });
                     return;
                 }
 

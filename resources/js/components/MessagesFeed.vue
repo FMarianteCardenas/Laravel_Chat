@@ -5,6 +5,7 @@
                 <div class="text">
                     {{message.message}}
                 </div>
+                <p v-if="message.to===contact.id && message.read == 1">Leído</p>
             </li>
         </ul>
     </div>
@@ -59,6 +60,11 @@ export default {
                     border-radius:5px;
                     padding:12px;
                     display:inline-block;
+                }
+                p{
+                    color:#7e8694;
+                    font-size: 12px;
+                    margin-right: 10px;
                 }
                 &.received{
                     text-align: left;

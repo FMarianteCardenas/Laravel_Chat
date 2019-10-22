@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\User', 'networks', 'user_two_id','user_one_id');
     }
+
+    public function sended_messages()
+    {
+        return $this->hasMany('App\Message', 'from', 'id');
+    }
 }

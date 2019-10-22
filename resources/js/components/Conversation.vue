@@ -3,6 +3,7 @@
         <h1 class="head-app">{{contact?contact.name:'Seleccione un Contacto'}}</h1>
         <messages-feed :contact="contact" :messages="messages" :user="user"></messages-feed>
         <message-box @send="sendMessage" :user="user" :contact="contact"></message-box>
+        <img width="35" height="35" :src="`/storage/uploads/B1RqrrkVLPJLIaDRBzRM6EjLLqBSVYjcKcF6fDDo.jpeg`" alt="">
     </div>
 </template>
 <script>

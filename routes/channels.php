@@ -27,6 +27,7 @@ Broadcast::channel('user.has.loged.In.{id}', function($user,$id){
     //return (int) $user->id === (int) $id;
 });
 
+//canal para las notificaciones de un usuario
 Broadcast::channel('user.notifications.{id}',function($user,$id){
     return (int) $user->id === (int) $id;
 });

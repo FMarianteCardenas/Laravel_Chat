@@ -53,7 +53,7 @@ export default {
 <style lang="scss" scoped>
 .contact-list{
     flex:2;
-    max-height: 600px;
+    max-height: 631px;
     overflow: scroll;
     border-left: 1px solid #2aba25;
 
